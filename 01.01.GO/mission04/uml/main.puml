@@ -1,0 +1,16 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+== Initialization ==
+
+main -> config: 初始化config
+main <-- config: 初始化config成功
+main -> log: 初始化日志
+main <-- log: 初始化日志成功
+main -> mysql: 初始化数据库链接
+main <-- mysql: 初始化数据库链接成功
+main -> router: 初始化路由
+main <-- router: 初始化路由成功
+@enduml
