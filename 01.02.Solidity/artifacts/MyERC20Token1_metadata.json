@@ -1,0 +1,53 @@
+{
+	"compiler": {
+		"version": "0.8.30+commit.73712a01"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"task02/MyToken1.sol": "MyERC20Token1"
+		},
+		"evmVersion": "prague",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+			"keccak256": "0x74ed01eb66b923d0d0cfe3be84604ac04b76482a55f9dd655e1ef4d367f95bc2",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://5282825a626cfe924e504274b864a652b0023591fa66f06a067b25b51ba9b303",
+				"dweb:/ipfs/QmeCfPykghhMc81VJTrHTC7sF6CRvaA1FXVq2pJhwYp1dV"
+			]
+		},
+		"task02/MyToken1.sol": {
+			"keccak256": "0x69ce6d27300591c7ab8af0742a4207a661e4cc75bd4a0341eed126d7d65b2143",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://cdbe729404704d53af5e44c4732d099d1c6c07c931a80520358e025cbd820afa",
+				"dweb:/ipfs/QmQUcUbRX8GZxSgxii67azkcjKUsEnqyr5eebM8ArSwjsd"
+			]
+		}
+	},
+	"version": 1
+}
