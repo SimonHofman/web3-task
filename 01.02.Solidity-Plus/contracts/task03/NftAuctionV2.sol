@@ -1,0 +1,8 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.10;
+
+contract NftAuctionV2 is NftAuction {
+    function testHello() public pure returns (string memory) {
+        return "hello world!";
+    }
+}
