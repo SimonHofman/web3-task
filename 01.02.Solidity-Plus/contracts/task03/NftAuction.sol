@@ -45,8 +45,16 @@ contract NftAuction is Initializable, UUPSUpgradeable {
     // 预言机
     mapping(address => AggregatorV3Interface) public priceFeeds;
 
-    function initialize() public initializer {
-        admin = msg.sender;
+    function initialize(
+        address _admin,
+        uint256 _duration,
+        uint256 _startPrice,
+        address _nftContractAddress,
+        uint256 _tokenId
+    ) public initializer {
+        admin = _admin;
+        // 如果需要在初始化时创建拍卖，可以调用 createAuction
+        createAuction(_duration, _startPrice, _nftContractAddress, _tokenId);
     }
 
     function setPriceFeed(address tokenAddress, address _priceFeed) public {

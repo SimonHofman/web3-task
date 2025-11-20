@@ -1,7 +1,7 @@
-const {deployments, upgrades, ethers} = require("hardhat")
+const {deployments, upgrades, ethers} = require("hardhat");
 
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 module.exports = async ({getNamedAccounts, deployments}) => {
     const {save} = deployments;
@@ -9,10 +9,18 @@ module.exports = async ({getNamedAccounts, deployments}) => {
     console.log("部署用户地址:", deployer);
 
     const NftAuction = await ethers.getContractFactory("NftAuction");
-    const NftAuctionProxy = await upgrades.deployProxy(
-        NftAuction, [], {initializer: "initialize"}
+    const nftAuctionProxy = await upgrades.deployProxy(
+        NftAuction,
+        [
+            deployer,
+            100 * 1000,
+            ethers.parseEther("0.000000000000000001"),
+            ethers.ZeroAddress,
+            1
+        ],
+        {initializer: "initialize"}
     );
-    await NftAuctionProxy.deployed();
+    await nftAuctionProxy.waitForDeployment();
 
     const proxyAddress = await nftAuctionProxy.getAddress();
     console.log("代理合约地址:", proxyAddress);
@@ -28,7 +36,7 @@ module.exports = async ({getNamedAccounts, deployments}) => {
         JSON.stringify({
             proxyAddress,
             implAddress,
-            abi: NftAuction.interface.format("json")
+            abi: NftAuction.interface.format("json"),
         })
     );
 
@@ -36,6 +44,6 @@ module.exports = async ({getNamedAccounts, deployments}) => {
         abi: NftAuction.interface.format("json"),
         address: proxyAddress,
     })
-}
+};
 
 module.exports.tags = ["deployNftAuction"];
