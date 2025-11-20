@@ -9,7 +9,7 @@ describe("Test auction", async function() {
 
 async function main() {
     const [signer, buyer] = await ethers.getSigners();
-    await deployments.fixture["deployNftAuction"]
+    await deployments.fixture(["deployNftAuction"]);
 
     const nftAuctionProxy = await deployments.get("NftAuctionProxy");
     const nftAuction = await ethers.getContractAt(
