@@ -1,4 +1,4 @@
-const { ethers, deployments } = require("hardhat");
+const { ethers, deployments, upgrades} = require("hardhat");
 const { expect } = require("chai");
 
 describe("Test auction", async function() {
@@ -79,6 +79,7 @@ async function main() {
     tx = await  testERC20.connect(buyer).approve(nftAuctionProxy.address, ethers.MaxUint256);
     await  tx.wait();
     tx = await nftAuction.connect(buyer).placeBid(0, ethers.parseEther("101"), UsdcAddress);
+    await  tx.wait();
 
     // 4. 结束拍卖
     await new Promis((resolve) => setTimeout(resolve, 10 * 1000));

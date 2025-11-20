@@ -11,13 +11,7 @@ module.exports = async ({getNamedAccounts, deployments}) => {
     const NftAuction = await ethers.getContractFactory("NftAuction");
     const nftAuctionProxy = await upgrades.deployProxy(
         NftAuction,
-        [
-            deployer,
-            100 * 1000,
-            ethers.parseEther("0.000000000000000001"),
-            ethers.ZeroAddress,
-            1
-        ],
+        [],
         {initializer: "initialize"}
     );
     await nftAuctionProxy.waitForDeployment();
@@ -27,7 +21,7 @@ module.exports = async ({getNamedAccounts, deployments}) => {
     const implAddress = await upgrades.erc1967.getImplementationAddress(proxyAddress);
     console.log("实现合约地址:", implAddress);
 
-    const storePath = path.resolve(_dirname, "./.cache/proxyNftAuction.json");
+    const storePath = path.resolve(__dirname, "./.cache/proxyNftAuction.json");
 
     // 将部署信息写入存储文件
     // 包含代理地址、实现地址和ABI接口定义
