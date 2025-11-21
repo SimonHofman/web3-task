@@ -2,7 +2,7 @@ const { ethers, deployments, upgrades} = require("hardhat");
 const { expect } = require("chai");
 
 describe("Test auction", async function() {
-    if("Should be ok", async function() {
+    it("Should be ok", async function() {
         await  main();
     });
 })
@@ -24,18 +24,19 @@ async function main() {
 
     let tx = await  testERC20.connect(signer).transfer(buyer, ethers.parseEther("1000"));
     await tx.wait();
+    console.log("transfer to buyer::", await testERC20.balanceOf(buyer));
 
-    const aggreagatorv3 = await ethers.getContractFactory("AggreagatorV3");
+    const aggreagatorV3 = await ethers.getContractFactory("AggreagatorV3");
 
-    const priceFeedEthDeploy = await  aggreagatorv3.deploy(ethers.parseEther("10000"));
+    const priceFeedEthDeploy = await  aggreagatorV3.deploy(ethers.parseEther("10000"));
     const priceFeedEth = await priceFeedEthDeploy.waitForDeployment();
     const priceFeedEthAddress = await priceFeedEth.getAddress();
     console.log("ethFeed:" , priceFeedEthAddress);
 
-    const priceFeedUSDCDeploy = await aggreagatorv3.deploy(ethers.parseEther("1"));
+    const priceFeedUSDCDeploy = await aggreagatorV3.deploy(ethers.parseEther("1"));
     const priceFeedUSDC = await priceFeedUSDCDeploy.waitForDeployment();
     const priceFeedUSDCAddress = await priceFeedUSDC.getAddress();
-    console.log("usdcFeed:", await priceFeedUSDCAddress.getAddress());n
+    console.log("usdcFeed:", await priceFeedUSDCAddress);
 
     const token2Usd = [{
         token: ethers.ZeroAddress,
@@ -55,10 +56,10 @@ async function main() {
     const testERC721 = await TestERC721.deploy();
     await testERC721.waitForDeployment();
     const testERC721Address = await testERC721.getAddress();
-    console.log("testERC721Address:", testERC721Address);
+    console.log("testERC721Address::", testERC721Address);
 
     for (let i = 0; i < 10; i ++ ) {
-        await testERC721.mint(signer, i + 1);
+        await testERC721.mint(signer.address, i + 1);
     }
 
     const tokenId = 1;
@@ -66,13 +67,18 @@ async function main() {
     // 2. 给代理合约授权
     await testERC721.connect(signer).setApprovalForAll(nftAuctionProxy.address, true);
 
-    await nftAuction.createAuction(10, ethers.parseEther("0.01"), testERC721Address, tokenId);
+    await nftAuction.createAuction(
+        10,
+        ethers.parseEther("0.00000001"),
+        testERC721Address,
+        tokenId
+    );
     const auction = await nftAuction.auctions(0);
 
-    console.log("创建拍卖成功：", auction);
+    console.log("创建拍卖成功::", auction);
 
     // 3. 购买者参与拍卖
-    tx = await nftAuction.connect(buyer).placeBid(0, 0, ethers.ZeroAddress, {value: ethers.parseEther("0.01")});
+    tx = await nftAuction.connect(buyer).placeBid(0, 0, ethers.ZeroAddress, {value: ethers.parseEther("0.00000002")});
     await tx.wait();
 
     // USDC参与竞价
@@ -82,18 +88,18 @@ async function main() {
     await  tx.wait();
 
     // 4. 结束拍卖
-    await new Promis((resolve) => setTimeout(resolve, 10 * 1000));
+    await new Promise((resolve) => setTimeout(resolve, 10 * 1000));
     await nftAuction.connect(signer).endAuction(0);
 
     // 验证结果
     const auctionResult = await nftAuction.auctions(0);
-    console.log("结束拍卖后读取拍卖成功：", auctionResult);
+    console.log("结束拍卖后读取拍卖成功::", auctionResult);
     expect(auctionResult.highestBidder).to.equal(buyer.address);
     expect(auctionResult.highestBid).to.equal(ethers.parseEther("101"));
 
     // 验证NFT所有权
     const owner = await testERC721.ownerOf(tokenId);
-    console.log("owner:", owner);
+    console.log("owner::", owner);
     expect(owner).to.equal(buyer.address);
 }
 

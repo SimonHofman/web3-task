@@ -15,7 +15,7 @@ describe("Test upgrade", async function() {
         const testERC721 = await TestERC721.deploy();
         await testERC721.waitForDeployment();
         const testERC721Address = await testERC721.getAddress();
-        console.log("testERC721Address:", testERC721Address);
+        console.log("testERC721Address::", testERC721Address);
 
         // mint 10个 NFT
         for (let i = 0; i < 10; i ++) {
@@ -41,7 +41,7 @@ describe("Test upgrade", async function() {
         );
 
         const auction = await nftAuction.auctions(0);
-        console.log("创建拍卖成功：", auction);
+        console.log("创建拍卖成功::", auction);
 
         const implAddress1 = await upgrades.erc1967.getImplementationAddress(
             nftAuctionProxy.address
@@ -55,17 +55,17 @@ describe("Test upgrade", async function() {
 
         // 4. 读取合约的 auction[0]
         const auction2 = await nftAuction.auctions(0);
-        console.log("升级后读取拍卖成功：", auction2);
+        console.log("升级后读取拍卖成功::", auction2);
 
-        console.log("implAddress1:", implAddress1, "\nimplAddress2:", implAddress2);
+        console.log("implAddress1::", implAddress1, "\nimplAddress2::", implAddress2);
 
-        const nftAuction2 = await ethers.getContractAt(
-            "NftAuction2",
+        const nftAuctionV2 = await ethers.getContractAt(
+            "NftAuctionV2",
             nftAuctionProxy.address
         );
-        const hello = await nftAuction2.testHello();
+        const hello = await nftAuctionV2.testHello();
         console.log("hello:", hello);
 
-        expect(auction2.startTime).to.equal(auction2.startTime);
+        expect(auction2.startTime).to.equal(auction.startTime);
     });
 });
