@@ -10,7 +10,7 @@ import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/shared/interf
 
 import "hardhat/console.sol";
 
-contract NftAuction is Initializable, UUPSUpgradeable {
+contract MyNftAuction is Initializable, UUPSUpgradeable {
     // 结构体
     struct Auction {
         // 卖家

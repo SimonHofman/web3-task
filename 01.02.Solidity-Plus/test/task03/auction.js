@@ -1,4 +1,4 @@
-const { ethers, deployments, upgrades} = require("hardhat");
+const { ethers, deployments} = require("hardhat");
 const { expect } = require("chai");
 
 describe("Test auction", async function() {
