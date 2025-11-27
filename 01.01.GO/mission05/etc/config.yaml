@@ -1,0 +1,17 @@
+server:
+  port: 8888
+
+mysql:
+  host: localhost
+  port: 3306
+  user: root
+  password: 12345678
+  database: go_blog
+
+auth:
+  jwt_secret: JmOB9LwvhNkvm9C1LjISZtmrb1mRfFwA
+  token_expiry: 86400
+
+log:
+  path: ./logs/app.log
+  level: info

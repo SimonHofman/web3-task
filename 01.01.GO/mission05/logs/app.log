@@ -1,0 +1,98 @@
+{"level":"INFO","ts":"2025-10-31T16:01:26.283+0800","caller":"runtime/proc.go:285","msg":"项目配置初始化成功"}
+{"level":"INFO","ts":"2025-10-31T16:01:26.300+0800","caller":"runtime/proc.go:285","msg":"项目日志初始化成功"}
+{"level":"INFO","ts":"2025-10-31T16:02:41.655+0800","caller":"runtime/proc.go:285","msg":"项目配置初始化成功"}
+{"level":"INFO","ts":"2025-10-31T16:02:41.670+0800","caller":"runtime/proc.go:285","msg":"项目日志初始化成功"}
+{"level":"INFO","ts":"2025-10-31T16:02:41.719+0800","caller":"runtime/proc.go:285","msg":"项目数据库初始化成功"}
+{"level":"INFO","ts":"2025-10-31T16:57:20.139+0800","caller":"runtime/proc.go:285","msg":"项目配置初始化成功"}
+{"level":"INFO","ts":"2025-10-31T16:57:20.156+0800","caller":"runtime/proc.go:285","msg":"项目日志初始化成功"}
+{"level":"INFO","ts":"2025-10-31T16:57:20.184+0800","caller":"runtime/proc.go:285","msg":"项目数据库初始化成功"}
+{"level":"INFO","ts":"2025-10-31T16:57:20.184+0800","caller":"runtime/proc.go:285","msg":"项目路由初始化成功"}
+{"level":"INFO","ts":"2025-11-01T10:40:17.458+0800","caller":"runtime/proc.go:285","msg":"项目配置初始化成功"}
+{"level":"INFO","ts":"2025-11-01T10:40:17.476+0800","caller":"runtime/proc.go:285","msg":"项目日志初始化成功"}
+{"level":"INFO","ts":"2025-11-01T10:40:17.516+0800","caller":"runtime/proc.go:285","msg":"项目数据库初始化成功"}
+{"level":"INFO","ts":"2025-11-01T10:40:17.516+0800","caller":"runtime/proc.go:285","msg":"项目路由初始化成功"}
+{"level":"INFO","ts":"2025-11-01T12:03:38.961+0800","caller":"runtime/proc.go:285","msg":"项目配置初始化成功"}
+{"level":"INFO","ts":"2025-11-01T12:03:38.977+0800","caller":"runtime/proc.go:285","msg":"项目日志初始化成功"}
+{"level":"INFO","ts":"2025-11-01T12:03:39.005+0800","caller":"runtime/proc.go:285","msg":"项目数据库初始化成功"}
+{"level":"INFO","ts":"2025-11-01T12:03:39.006+0800","caller":"runtime/proc.go:285","msg":"项目路由初始化成功"}
+{"level":"INFO","ts":"2025-11-01T14:11:51.802+0800","caller":"runtime/proc.go:285","msg":"项目配置初始化成功"}
+{"level":"INFO","ts":"2025-11-01T14:11:51.818+0800","caller":"runtime/proc.go:285","msg":"项目日志初始化成功"}
+{"level":"INFO","ts":"2025-11-01T14:11:51.845+0800","caller":"runtime/proc.go:285","msg":"项目数据库初始化成功"}
+{"level":"INFO","ts":"2025-11-01T14:11:51.846+0800","caller":"runtime/proc.go:285","msg":"项目路由初始化成功"}
+{"level":"INFO","ts":"2025-11-01T14:12:13.667+0800","caller":"runtime/proc.go:285","msg":"项目配置初始化成功"}
+{"level":"INFO","ts":"2025-11-01T14:12:13.682+0800","caller":"runtime/proc.go:285","msg":"项目日志初始化成功"}
+{"level":"INFO","ts":"2025-11-01T14:12:13.705+0800","caller":"runtime/proc.go:285","msg":"项目数据库初始化成功"}
+{"level":"INFO","ts":"2025-11-01T14:12:13.706+0800","caller":"runtime/proc.go:285","msg":"项目路由初始化成功"}
+{"level":"INFO","ts":"2025-11-01T14:25:46.995+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"POST","path":"/api/v1/auth/register","status":200,"latency":0.0749431}
+{"level":"INFO","ts":"2025-11-01T14:26:28.009+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"POST","path":"/api/v1/auth/login","status":200,"latency":0.1197289}
+{"level":"INFO","ts":"2025-11-01T14:38:55.308+0800","caller":"runtime/proc.go:285","msg":"项目配置初始化成功"}
+{"level":"INFO","ts":"2025-11-01T14:38:55.323+0800","caller":"runtime/proc.go:285","msg":"项目日志初始化成功"}
+{"level":"INFO","ts":"2025-11-01T14:38:55.408+0800","caller":"runtime/proc.go:285","msg":"项目数据库初始化成功"}
+{"level":"INFO","ts":"2025-11-01T14:38:55.408+0800","caller":"runtime/proc.go:285","msg":"项目路由初始化成功"}
+{"level":"INFO","ts":"2025-11-01T14:39:10.288+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"POST","path":"/api/v1/auth/register","status":200,"latency":0.0601853}
+{"level":"INFO","ts":"2025-11-01T14:39:20.563+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"POST","path":"/api/v1/auth/login","status":200,"latency":0.1154343}
+{"level":"INFO","ts":"2025-11-01T14:41:57.135+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"POST","path":"/api/v1/posts","status":404,"latency":0}
+{"level":"INFO","ts":"2025-11-01T14:43:27.651+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"POST","path":"/api/v1/posts","status":404,"latency":0}
+{"level":"INFO","ts":"2025-11-01T14:43:56.825+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"POST","path":"/api/v1/posts/create","status":404,"latency":0}
+{"level":"INFO","ts":"2025-11-01T14:44:58.769+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"POST","path":"/api/v1/post","status":404,"latency":0}
+{"level":"INFO","ts":"2025-11-01T14:45:10.402+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"POST","path":"/api/v1/post/create","status":200,"latency":0.0126925}
+{"level":"INFO","ts":"2025-11-01T14:49:06.053+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"POST","path":"/api/v1/user/page","status":404,"latency":0}
+{"level":"INFO","ts":"2025-11-01T14:49:44.179+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"POST","path":"/api/v1/user/page","status":404,"latency":0}
+{"level":"INFO","ts":"2025-11-01T14:50:17.209+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"GET","path":"/api/v1/user/page","status":200,"latency":0.0002084}
+{"level":"INFO","ts":"2025-11-01T14:56:19.668+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"GET","path":"/api/v1/post/page","status":200,"latency":0}
+{"level":"INFO","ts":"2025-11-01T14:56:42.414+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"GET","path":"/api/v1/post/page","status":200,"latency":0}
+{"level":"INFO","ts":"2025-11-01T15:00:59.095+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"GET","path":"/api/v1/post/page","status":200,"latency":0}
+{"level":"INFO","ts":"2025-11-01T15:01:50.890+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"GET","path":"/api/v1/user/page","status":200,"latency":0}
+{"level":"INFO","ts":"2025-11-01T15:03:24.244+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"GET","path":"/api/v1/post/page","status":200,"latency":0}
+{"level":"INFO","ts":"2025-11-01T15:03:46.660+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"GET","path":"/api/v1/post/page","status":200,"latency":0}
+{"level":"INFO","ts":"2025-11-01T15:04:30.283+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"GET","path":"/api/v1/post/page","status":200,"latency":0}
+{"level":"INFO","ts":"2025-11-01T15:04:56.844+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"POST","path":"/api/v1/post/create","status":200,"latency":0.0033855}
+{"level":"INFO","ts":"2025-11-01T15:07:41.491+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"GET","path":"/api/v1/user/page","status":200,"latency":0}
+{"level":"INFO","ts":"2025-11-01T15:09:09.890+0800","caller":"runtime/proc.go:285","msg":"项目配置初始化成功"}
+{"level":"INFO","ts":"2025-11-01T15:09:09.907+0800","caller":"runtime/proc.go:285","msg":"项目日志初始化成功"}
+{"level":"INFO","ts":"2025-11-01T15:09:09.936+0800","caller":"runtime/proc.go:285","msg":"项目数据库初始化成功"}
+{"level":"INFO","ts":"2025-11-01T15:09:09.937+0800","caller":"runtime/proc.go:285","msg":"项目路由初始化成功"}
+{"level":"INFO","ts":"2025-11-01T15:09:18.948+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"GET","path":"/api/v1/user/page","status":200,"latency":0.0005133}
+{"level":"INFO","ts":"2025-11-01T15:10:03.878+0800","caller":"runtime/proc.go:285","msg":"项目配置初始化成功"}
+{"level":"INFO","ts":"2025-11-01T15:10:03.893+0800","caller":"runtime/proc.go:285","msg":"项目日志初始化成功"}
+{"level":"INFO","ts":"2025-11-01T15:10:03.920+0800","caller":"runtime/proc.go:285","msg":"项目数据库初始化成功"}
+{"level":"INFO","ts":"2025-11-01T15:10:03.921+0800","caller":"runtime/proc.go:285","msg":"项目路由初始化成功"}
+{"level":"INFO","ts":"2025-11-01T15:10:14.456+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"GET","path":"/api/v1/user/page","status":200,"latency":0.0007107}
+{"level":"INFO","ts":"2025-11-01T15:12:06.257+0800","caller":"runtime/proc.go:285","msg":"项目配置初始化成功"}
+{"level":"INFO","ts":"2025-11-01T15:12:06.273+0800","caller":"runtime/proc.go:285","msg":"项目日志初始化成功"}
+{"level":"INFO","ts":"2025-11-01T15:12:06.301+0800","caller":"runtime/proc.go:285","msg":"项目数据库初始化成功"}
+{"level":"INFO","ts":"2025-11-01T15:12:06.301+0800","caller":"runtime/proc.go:285","msg":"项目路由初始化成功"}
+{"level":"INFO","ts":"2025-11-01T15:12:13.399+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"GET","path":"/api/v1/user/page","status":200,"latency":0}
+{"level":"INFO","ts":"2025-11-01T15:15:55.142+0800","caller":"runtime/proc.go:285","msg":"项目配置初始化成功"}
+{"level":"INFO","ts":"2025-11-01T15:15:55.157+0800","caller":"runtime/proc.go:285","msg":"项目日志初始化成功"}
+{"level":"INFO","ts":"2025-11-01T15:15:55.193+0800","caller":"runtime/proc.go:285","msg":"项目数据库初始化成功"}
+{"level":"INFO","ts":"2025-11-01T15:15:55.193+0800","caller":"runtime/proc.go:285","msg":"项目路由初始化成功"}
+{"level":"INFO","ts":"2025-11-01T15:16:14.653+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"POST","path":"/api/v1/user/page","status":200,"latency":0}
+{"level":"INFO","ts":"2025-11-01T15:17:06.396+0800","caller":"runtime/proc.go:285","msg":"项目配置初始化成功"}
+{"level":"INFO","ts":"2025-11-01T15:17:06.411+0800","caller":"runtime/proc.go:285","msg":"项目日志初始化成功"}
+{"level":"INFO","ts":"2025-11-01T15:17:06.435+0800","caller":"runtime/proc.go:285","msg":"项目数据库初始化成功"}
+{"level":"INFO","ts":"2025-11-01T15:17:06.437+0800","caller":"runtime/proc.go:285","msg":"项目路由初始化成功"}
+{"level":"INFO","ts":"2025-11-01T15:17:45.006+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"GET","path":"/api/v1/user/page","status":200,"latency":0.0008093}
+{"level":"INFO","ts":"2025-11-01T15:20:44.066+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"GET","path":"/api/v1/user/page","status":200,"latency":0}
+{"level":"INFO","ts":"2025-11-01T15:22:44.572+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"GET","path":"/api/v1/user/page","status":200,"latency":0.0011714}
+{"level":"INFO","ts":"2025-11-01T15:27:43.569+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"GET","path":"/api/v1/post/page","status":200,"latency":0.0017081}
+{"level":"INFO","ts":"2025-11-01T15:31:13.863+0800","caller":"runtime/proc.go:285","msg":"项目配置初始化成功"}
+{"level":"INFO","ts":"2025-11-01T15:31:13.878+0800","caller":"runtime/proc.go:285","msg":"项目日志初始化成功"}
+{"level":"INFO","ts":"2025-11-01T15:31:13.907+0800","caller":"runtime/proc.go:285","msg":"项目数据库初始化成功"}
+{"level":"INFO","ts":"2025-11-01T15:31:13.907+0800","caller":"runtime/proc.go:285","msg":"项目路由初始化成功"}
+{"level":"INFO","ts":"2025-11-01T15:32:42.342+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"GET","path":"/api/v1/post/byId","status":200,"latency":0.0015671}
+{"level":"INFO","ts":"2025-11-01T15:35:04.340+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"GET","path":"/api/v1/post/byId","status":200,"latency":0.0011096}
+{"level":"INFO","ts":"2025-11-01T15:44:47.417+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"POST","path":"/api/v1/post/create","status":200,"latency":0}
+{"level":"INFO","ts":"2025-11-01T15:45:13.520+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"POST","path":"/api/v1/post/edit","status":200,"latency":0.0009247}
+{"level":"INFO","ts":"2025-11-01T15:45:38.448+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"POST","path":"/api/v1/post/edit","status":200,"latency":0.013026}
+{"level":"INFO","ts":"2025-11-01T15:46:16.697+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"GET","path":"/api/v1/post/byId","status":200,"latency":0.0005151}
+{"level":"INFO","ts":"2025-11-01T15:47:21.174+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"GET","path":"/api/v1/post/delete","status":200,"latency":0.001178}
+{"level":"INFO","ts":"2025-11-01T15:49:52.756+0800","caller":"runtime/proc.go:285","msg":"项目配置初始化成功"}
+{"level":"INFO","ts":"2025-11-01T15:49:52.772+0800","caller":"runtime/proc.go:285","msg":"项目日志初始化成功"}
+{"level":"INFO","ts":"2025-11-01T15:49:52.798+0800","caller":"runtime/proc.go:285","msg":"项目数据库初始化成功"}
+{"level":"INFO","ts":"2025-11-01T15:49:52.799+0800","caller":"runtime/proc.go:285","msg":"项目路由初始化成功"}
+{"level":"INFO","ts":"2025-11-01T15:50:00.635+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"GET","path":"/api/v1/post/delete","status":200,"latency":0.0131245}
+{"level":"INFO","ts":"2025-11-01T15:52:56.507+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"POST","path":"/api/v1/comment/create","status":200,"latency":0.0004989}
+{"level":"INFO","ts":"2025-11-01T15:53:11.602+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"POST","path":"/api/v1/comment/create","status":200,"latency":0.0028149}
+{"level":"INFO","ts":"2025-11-01T15:53:22.745+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"POST","path":"/api/v1/comment/create","status":200,"latency":0.0019619}
+{"level":"INFO","ts":"2025-11-01T15:54:55.585+0800","caller":"gin@v1.11.0/context.go:192","msg":"HTTP Request","method":"GET","path":"/api/v1/comment/byPostId","status":200,"latency":0.0005412}
