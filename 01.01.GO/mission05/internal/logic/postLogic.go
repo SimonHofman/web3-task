@@ -1,9 +1,9 @@
 package logic
 
 import (
-	"mission04/internal/model"
-	"mission04/pkg/db"
-	error2 "mission04/pkg/error"
+	"mission05/internal/model"
+	"mission05/pkg/db"
+	error2 "mission05/pkg/error"
 )
 
 type postLogic struct{}

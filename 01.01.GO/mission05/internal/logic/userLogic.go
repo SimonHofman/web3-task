@@ -1,9 +1,9 @@
 package logic
 
 import (
-	"mission04/internal/model"
-	"mission04/pkg/auth"
-	"mission04/pkg/db"
+	"mission05/internal/model"
+	"mission05/pkg/auth"
+	"mission05/pkg/db"
 
 	"golang.org/x/crypto/bcrypt"
 )

@@ -2,8 +2,8 @@ package logic
 
 import (
 	"errors"
-	"mission04/internal/model"
-	"mission04/pkg/db"
+	"mission05/internal/model"
+	"mission05/pkg/db"
 )
 
 type commentLogic struct{}
