@@ -1,0 +1,17 @@
+server:
+  port: 8888
+
+mysql:
+  host: localhost
+  port: 3306
+  user: root
+  password: 12345678
+  database: eth_record
+
+auth:
+  jwt_secret: 3P4UFg0yjBtO49l7rcHvvkULV5qLpuaToYVmVbUElvR70WbNi8ufKfkRLcFscAW2
+  token_expiry: 7200
+
+log:
+  path: ./logs/app.log
+  level: info
