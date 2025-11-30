@@ -15,3 +15,8 @@ auth:
 log:
   path: ./logs/app.log
   level: info
+
+eth_client:
+  url: "https://ethereum-sepolia-rpc.publicnode.com"
+  accounts: [ "0x886f420125a9789de4eafb345e660156560118fc", "0x99d368103b9bc7a54edb4afde4cdf419b4105eb9" ]
+  contracts: [ "0xff1C175eDcA2d6c41c328649e7B23B3a5013C00d", "0x8E60307716931638FE322F11789AedC8c3aaECc1", "0xf0a70b26da6c86de142c527bf194a23be6159eb4" ]

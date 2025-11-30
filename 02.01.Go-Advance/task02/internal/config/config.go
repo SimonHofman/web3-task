@@ -36,6 +36,12 @@ type Configuration struct {
 		Path  string `yaml:"path"`
 		Level string `yaml:"level"`
 	} `yaml:"log"`
+
+	EthClient struct {
+		Url       string   `yaml:"url"`
+		Accounts  []string `yaml:"accounts"`
+		Contracts []string `yaml:"contracts"`
+	} `yaml:"eth_client"`
 }
 
 func InitConfig(path string) {
