@@ -9,11 +9,11 @@ import (
 )
 
 var (
-	once   sync.Once
-	client *ethclient.Client
+	once sync.Once
 )
 
-func GetClient() {
+func GetClient() *ethclient.Client {
+	var client *ethclient.Client
 	once.Do(func() {
 		config := config.GetConfig().EthClient
 		var err error
@@ -22,4 +22,5 @@ func GetClient() {
 			log.Fatal("连接以太坊客户端失败", err)
 		}
 	})
+	return client
 }

@@ -12,7 +12,8 @@ type Block struct {
 	Difficulty  string
 	GasLimit    uint64
 	GasUsed     uint64
-	Miner       string `gorm:"size:42"`
+	Miner       string         `gorm:"size:42"`
+	Transaction []*Transaction `gorm:"foreignKey:BlockID;references:ID"`
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
 }
