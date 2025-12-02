@@ -3,7 +3,7 @@ package db
 import (
 	"fmt"
 	"log"
-	"task02/internal/config"
+	"task02/config"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"

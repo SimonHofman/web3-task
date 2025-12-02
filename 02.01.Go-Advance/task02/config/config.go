@@ -38,9 +38,10 @@ type Configuration struct {
 	} `yaml:"log"`
 
 	EthClient struct {
-		Url       string   `yaml:"url"`
+		RpcUrl    string   `yaml:"rpc_url"`
 		Accounts  []string `yaml:"accounts"`
 		Contracts []string `yaml:"contracts"`
+		Timeout   int      `yaml:"timeout"`
 	} `yaml:"eth_client"`
 }
 

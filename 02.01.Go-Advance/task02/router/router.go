@@ -1,7 +1,7 @@
 package router
 
 import (
-	"task02/internal/handler"
+	"task02/handlers"
 
 	"github.com/gin-gonic/gin"
 )
@@ -15,10 +15,10 @@ func InitRouter() *gin.Engine {
 	{
 		blockGroup := apiV1.Group("/block")
 		{
-			blockGroup.GET("/searchByNumber", handler.BlockSearchByNumber)
-			blockGroup.GET("/syncByNumber", handler.BlockSyncByNumber)
-			blockGroup.GET("/searchByHash", handler.BlockSearchByHash)
-			blockGroup.GET("/syncByHash", handler.BlockSyncByHash)
+			//blockGroup.GET("/searchByNumber", services.BlockSearchByNumber)
+			blockGroup.GET("/syncByNumber", handlers.BlockSyncByNumber)
+			//blockGroup.GET("/searchByHash", handler.BlockSearchByHash)
+			//blockGroup.GET("/syncByHash", handler.BlockSyncByHash)
 		}
 	}
 	return r
