@@ -62,3 +62,7 @@ func (es *EthereumService) GetCode(address common.Address) ([]byte, error) {
 func (es *EthereumService) CallContract(msg ethereum.CallMsg) ([]byte, error) {
 	return es.client.CallContract(context.Background(), msg, nil)
 }
+
+func (es *EthereumService) StorageAt(addr common.Address, slot common.Hash) ([]byte, error) {
+	return es.client.StorageAt(context.Background(), addr, slot, nil)
+}

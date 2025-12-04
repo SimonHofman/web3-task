@@ -1,6 +1,8 @@
 package models
 
-import "time"
+import (
+	"time"
+)
 
 type Contract struct {
 	ID              uint64 `gorm:"primaryKey"`

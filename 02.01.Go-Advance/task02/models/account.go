@@ -1,6 +1,8 @@
 package models
 
-import "time"
+import (
+	"time"
+)
 
 type AccountOperation struct {
 	ID            uint64 `gorm:"primaryKey"`

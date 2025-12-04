@@ -100,7 +100,7 @@ func (cd *ContractDetector) checkOpenZeppelinProxy(contractAddr common.Address) 
 }
 
 func (cd *ContractDetector) getStorageAt(addr common.Address, slot string) (common.Address, error) {
-	result, err := cd.eth.client.StorageAt(nil, addr, common.HexToHash(slot), nil)
+	result, err := cd.eth.StorageAt(addr, common.HexToHash(slot))
 	if err != nil {
 		return common.Address{}, err
 	}

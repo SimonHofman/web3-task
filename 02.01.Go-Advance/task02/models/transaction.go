@@ -64,7 +64,7 @@ type Transaction struct {
 	ContractAddress  string `gorm:"size:42;index:idx_contract_address"` // 部署的合约地址
 
 	// 访问列表（EIP-2930）
-	AccessList string `gorm:"type:json"`
+	//AccessList string `gorm:"type:json"`
 
 	// 关联到所属的区块
 	Block *Block `gorm:"foreignKey:BlockID"`
