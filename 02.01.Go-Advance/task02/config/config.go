@@ -1,8 +1,6 @@
 package config
 
 import (
-	"fmt"
-	"log"
 	"os"
 	"sync"
 
@@ -10,8 +8,7 @@ import (
 )
 
 var (
-	config *Configuration
-	once   sync.Once
+	once sync.Once
 )
 
 type Configuration struct {
@@ -45,24 +42,18 @@ type Configuration struct {
 	} `yaml:"eth_client"`
 }
 
-func InitConfig(path string) {
-	once.Do(func() {
-		config = &Configuration{}
-		if err := loadconfig(path); err != nil {
-			log.Fatal("配置文件加载失败")
-		}
-	})
-}
-
-func GetConfig() *Configuration {
-	return config
-}
-
-func loadconfig(path string) error {
+func NewConfiguration(path string) *Configuration {
+	config := &Configuration{}
 	file, err := os.Open(path)
 	decoder := yaml.NewDecoder(file)
 	if err = decoder.Decode(&config); err != nil {
-		return fmt.Errorf("解析配置文件失败: %w", err)
+		return nil
 	}
-	return nil
+	if config.MySQL.Port == 0 {
+		config.MySQL.Port = 3306
+	}
+	if config.Server.Port == "" {
+		config.Server.Port = "8080"
+	}
+	return config
 }

@@ -16,28 +16,23 @@ import (
 
 type EthereumService struct {
 	client *ethclient.Client
-	rpcURL string
+	config *config.Configuration
 }
 
-func NewEthereumService() *EthereumService {
-	cfg := config.GetConfig().EthClient
-	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(cfg.Timeout)*time.Second)
-	defer cancel()
-
-	client, err := ethclient.DialContext(ctx, cfg.RpcUrl)
+func NewEthereumService(cfg *config.Configuration) *EthereumService {
+	client, err := ethclient.Dial(cfg.EthClient.RpcUrl)
 	if err != nil {
 		log.Fatal("RPC连接失败:", err)
 	}
 
 	return &EthereumService{
 		client: client,
-		rpcURL: cfg.RpcUrl,
+		config: cfg,
 	}
 }
 
 func (es *EthereumService) GetBlockByNumber(blockNumber uint64) (*types.Block, error) {
-	cfg := config.GetConfig().EthClient
-	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(cfg.Timeout)*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(es.config.EthClient.Timeout)*time.Second)
 	defer cancel()
 	return es.client.BlockByNumber(ctx, big.NewInt(int64(blockNumber)))
 }
@@ -51,8 +46,7 @@ func (es *EthereumService) GetLatestBlockNumber(ctx context.Context) (uint64, er
 }
 
 func (es *EthereumService) GetBlockByHash(blockHash common.Hash) (*types.Block, error) {
-	cfg := config.GetConfig().EthClient
-	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(cfg.Timeout)*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(es.config.EthClient.Timeout)*time.Second)
 	defer cancel()
 	return es.client.BlockByHash(ctx, blockHash)
 }

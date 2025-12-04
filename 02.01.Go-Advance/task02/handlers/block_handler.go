@@ -5,9 +5,22 @@ import (
 	"task02/logic"
 
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
-func BlockSyncByNumber(c *gin.Context) {
+type BlockHandler struct {
+	db             *gorm.DB
+	blockSyncLogic *logic.BlockSyncLogic
+}
+
+func NewBlockHandler(db *gorm.DB, blockSyncLogic *logic.BlockSyncLogic) *BlockHandler {
+	return &BlockHandler{
+		db:             db,
+		blockSyncLogic: blockSyncLogic,
+	}
+}
+
+func (bh *BlockHandler) BlockSyncByNumber(c *gin.Context) {
 	blockNumber, exist := c.GetQuery("blockNumber")
 	if !exist {
 		c.JSON(400, gin.H{
@@ -25,11 +38,16 @@ func BlockSyncByNumber(c *gin.Context) {
 		return
 	}
 
-	err = logic.BlockLogic.BlockSyncByNumber(blockNum)
+	err = bh.blockSyncLogic.BlockSyncByNumber(blockNum)
 	if err != nil {
 		c.JSON(500, gin.H{
 			"message": "sync block failed",
 		})
 		return
 	}
+
+	c.JSON(200, gin.H{
+		"message": "sync block success",
+		"block":   blockNumber,
+	})
 }
