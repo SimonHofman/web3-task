@@ -1,6 +1,7 @@
 package logic
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -34,7 +35,15 @@ func NewBlockSyncLogic(db *gorm.DB, eth *services.EthereumService, analyzer *uti
 	}
 }
 
-func (bsl *BlockSyncLogic) BlockSyncByNumber(blockNumber uint64) error {
+func (bsl *BlockSyncLogic) SyncLatestBlock() (uint64, error) {
+	latestBlockNumber, err := bsl.eth.GetLatestBlockNumber(context.Background())
+	if err != nil {
+		return uint64(0), fmt.Errorf("failed to get latest block number: %v", err)
+	}
+	return latestBlockNumber, bsl.SyncBlockByNumber(latestBlockNumber)
+}
+
+func (bsl *BlockSyncLogic) SyncBlockByNumber(blockNumber uint64) error {
 	bsl.mu.Lock()
 	defer bsl.mu.Unlock()
 

@@ -20,7 +20,7 @@ func NewBlockHandler(db *gorm.DB, blockSyncLogic *logic.BlockSyncLogic) *BlockHa
 	}
 }
 
-func (bh *BlockHandler) BlockSyncByNumber(c *gin.Context) {
+func (bh *BlockHandler) SyncBlockByNumber(c *gin.Context) {
 	blockNumber, exist := c.GetQuery("blockNumber")
 	if !exist {
 		c.JSON(400, gin.H{
@@ -38,7 +38,22 @@ func (bh *BlockHandler) BlockSyncByNumber(c *gin.Context) {
 		return
 	}
 
-	err = bh.blockSyncLogic.BlockSyncByNumber(blockNum)
+	err = bh.blockSyncLogic.SyncBlockByNumber(blockNum)
+	if err != nil {
+		c.JSON(500, gin.H{
+			"message": "sync block failed",
+		})
+		return
+	}
+
+	c.JSON(200, gin.H{
+		"message": "sync block success",
+		"block":   blockNumber,
+	})
+}
+
+func (bl *BlockHandler) SyncLatestBlock(c *gin.Context) {
+	blockNumber, err := bl.blockSyncLogic.SyncLatestBlock()
 	if err != nil {
 		c.JSON(500, gin.H{
 			"message": "sync block failed",
