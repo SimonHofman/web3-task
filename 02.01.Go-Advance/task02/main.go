@@ -27,8 +27,9 @@ func main() {
 	transactionAnalyzer := utils.NewTransactionAnalyzer()
 
 	blockSyncLogic := logic.NewBlockSyncLogic(db, ethService, transactionAnalyzer)
+	addressLogic := logic.NewAddressLogic(db, ethService)
 
-	r := router.InitRouter(db, blockSyncLogic)
+	r := router.InitRouter(db, blockSyncLogic, addressLogic)
 	err := r.Run(":" + cfg.Server.Port)
 	if err != nil {
 		log.Fatal(err)
