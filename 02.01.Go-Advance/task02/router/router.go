@@ -26,6 +26,7 @@ func InitRouter(
 		{
 			blockGroup.GET("/syncByNumber", blockHandler.SyncBlockByNumber)
 			blockGroup.GET("/syncLatest", blockHandler.SyncLatestBlock)
+			blockGroup.GET("/syncBatch", blockHandler.SyncBlockByNumbers)
 		}
 		addressGroup := apiV1.Group("/address")
 		{

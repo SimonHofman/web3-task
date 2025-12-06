@@ -52,6 +52,47 @@ func (bh *BlockHandler) SyncBlockByNumber(c *gin.Context) {
 	})
 }
 
+func (bh *BlockHandler) SyncBlockByNumbers(c *gin.Context) {
+	var request struct {
+		BlockNumbers []uint64 `json:"blockNumbers" binding:"required"`
+	}
+
+	if err := c.ShouldBindJSON(&request); err != nil {
+		c.JSON(400, gin.H{
+			"message": "invalid request format",
+			"error":   err.Error(),
+		})
+		return
+	}
+
+	if len(request.BlockNumbers) == 0 {
+		c.JSON(400, gin.H{
+			"message": "blockNumbers cannot be empyt",
+		})
+		return
+	}
+
+	if len(request.BlockNumbers) > 100 {
+		c.JSON(400, gin.H{
+			"message": "blockNumbers cannot be more than 100",
+		})
+	}
+
+	err := bh.blockSyncLogic.SyncBlockByNumbers(request.BlockNumbers)
+	if err != nil {
+		c.JSON(500, gin.H{
+			"message": "sync block failed",
+			"error":   err.Error(),
+		})
+		return
+	}
+
+	c.JSON(200, gin.H{
+		"message": "sync block success",
+		"block":   request.BlockNumbers,
+	})
+}
+
 func (bl *BlockHandler) SyncLatestBlock(c *gin.Context) {
 	blockNumber, err := bl.blockSyncLogic.SyncLatestBlock()
 	if err != nil {

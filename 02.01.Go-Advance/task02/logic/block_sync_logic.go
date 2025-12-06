@@ -43,6 +43,15 @@ func (bsl *BlockSyncLogic) SyncLatestBlock() (uint64, error) {
 	return latestBlockNumber, bsl.SyncBlockByNumber(latestBlockNumber)
 }
 
+func (bsl *BlockSyncLogic) SyncBlockByNumbers(blockNumbers []uint64) error {
+	for _, blockNumber := range blockNumbers {
+		if err := bsl.SyncBlockByNumber(blockNumber); err != nil {
+			return fmt.Errorf("failed to sync block %d: %v", blockNumber, err)
+		}
+	}
+	return nil
+}
+
 func (bsl *BlockSyncLogic) SyncBlockByNumber(blockNumber uint64) error {
 	bsl.mu.Lock()
 	defer bsl.mu.Unlock()

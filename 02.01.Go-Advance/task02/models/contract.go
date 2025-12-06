@@ -21,7 +21,7 @@ type ContractOperation struct {
 	TransactionHash string `gorm:"size:66;index"`
 	BlockNumber     uint64 `gorm:"index"`
 	FromAddress     string `gorm:"size:42:index"`
-	InputData       string `gorm:"type:text"`
+	InputData       string `gorm:"type:longtext"`
 	EventName       string `gorm:"size:100"`
 	EventData       string `gorm:"type:json"`
 	CreatedAt       time.Time
