@@ -15,13 +15,13 @@ interface ISwapRouter is ISwapCallback {
 
     struct ExactInputParams {
         address  tokenIn;
-        address tokenOunt;
+        address tokenOut;
         uint32[] indexPath;
         address recipient;
         uint256 deadline;
         uint256 amountIn;
         uint256 amountOutMininum;
-        uint160 sqrtPriceLimintX96;
+        uint160 sqrtPriceLimitX96;
     }
 
     function exactInput(
@@ -33,7 +33,7 @@ interface ISwapRouter is ISwapCallback {
         address tokenOut;
         uint32[] indexPath;
         address recipient;
-        address deadline;
+        uint256 deadline;
         uint256 amountOut;
         uint256 amountInMaximum;
         uint160 sqrtPriceLimitX96;
@@ -43,7 +43,7 @@ interface ISwapRouter is ISwapCallback {
         ExactOutputParams calldata params
     ) external payable returns (uint256 amountIn);
 
-    struct QuateExactInputParams{
+    struct QuoteExactInputParams{
         address tokenIn;
         address tokenOut;
         uint32[] indexPath;
@@ -52,7 +52,7 @@ interface ISwapRouter is ISwapCallback {
     }
 
     function quoteExactInput(
-        QuateExactInputParams calldata params
+        QuoteExactInputParams calldata params
     ) external returns(uint256 amountOut);
 
     struct QuoteExactOutputParams{
