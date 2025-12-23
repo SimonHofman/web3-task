@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.22;
 
 interface IPancakeRouter02 {
-    function addLiquidity(
+    function addLiquidityETH(
         address token,
         uint amountTokenDesired,
         uint amountTokenMin,
@@ -11,7 +11,7 @@ interface IPancakeRouter02 {
         bool optOutUserShare
     ) external payable returns (uint amountToken, uint amountETH, uint liquidity);
 
-    function removeLiquidity(
+    function removeLiquidityETH(
         address token,
         uint liquidity,
         uint amountTokenMin,
@@ -25,6 +25,8 @@ interface IPancakeRouter02 {
     function WETH() external pure returns (address);
 
     function getAmountOut(uint amountIn, address[] calldata path) external view returns (uint[] memory amounts);
+
+    function getAmountIn(uint amountIn, address[] calldata path) external view returns (uint[] memory amounts);
 
     function swapExactTokensForTokensSupportingFeeOnTransferTokens(
         uint amountIn,
