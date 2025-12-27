@@ -6,7 +6,7 @@ import {OrderKey, Price, LibOrder} from "../libraries/LibOrder.sol";
 interface IEasySwapOrderBook {
     function makeOrders(LibOrder.Order[] calldata newOrders) external payable returns (OrderKey[] memory newOrderKeys);
 
-    function cancellOrders(OrderKey[] calldata orderKeys) external returns (bool[] memory successes);
+    function cancelOrders(OrderKey[] calldata orderKeys) external returns (bool[] memory successes);
 
     function editOrders(
         LibOrder.EditDetail[] calldata editDetails
