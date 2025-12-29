@@ -29,17 +29,26 @@ contract EasySwapVault is IEasySwapVault, OwnableUpgradeable {
         orderBook = newOrderBook;
     }
 
-    function balanceOf(OrderKey orderKey) external view returns (uint256 ETHAmount, uint256 tokenId) {
+    function balanceOf(
+        OrderKey orderKey
+    ) external view returns (uint256 ETHAmount, uint256 tokenId) {
         ETHAmount = ETHBalance[orderKey];
         tokenId = NFTBalance[orderKey];
     }
 
-    function depositETH(OrderKey orderKey, uint256 ETHAmount) external payable onlyEasySwapOrderBook {
+    function depositETH(
+        OrderKey orderKey,
+        uint256 ETHAmount
+    ) external payable onlyEasySwapOrderBook {
         require(msg.value >= ETHAmount, "HV: not match ETHAmount");
         ETHBalance[orderKey] += msg.value;
     }
 
-    function withdrawETH(OrderKey orderKey, uint256 ETHAmount, address to) external onlyEasySwapOrderBook {
+    function withdrawETH(
+        OrderKey orderKey,
+        uint256 ETHAmount,
+        address to
+    ) external onlyEasySwapOrderBook {
         ETHBalance[orderKey] -= ETHAmount;
         to.safeTransferETH(ETHAmount);
     }
@@ -79,7 +88,10 @@ contract EasySwapVault is IEasySwapVault, OwnableUpgradeable {
             ETHBalance[newOrderKey] = newETHAmount;
             to.safeTransferETH(oldETHAmount - newETHAmount);
         } else if (oldETHAmount < newETHAmount) {
-            require(msg.value >= newETHAmount - oldETHAmount, "HV: not match ETHAmount");
+            require(
+                msg.value >= newETHAmount - oldETHAmount,
+                "HV: not match newETHAmount"
+            );
             ETHBalance[newOrderKey] = msg.value + oldETHAmount;
         } else {
             ETHBalance[newOrderKey] = oldETHAmount;
@@ -107,7 +119,11 @@ contract EasySwapVault is IEasySwapVault, OwnableUpgradeable {
         LibOrder.NFTInfo[] calldata assets
     ) external {
         for (uint256 i = 0; i < assets.length; ++i) {
-            IERC721(assets[i].collection).safeTransferNFT(_msgSender(), to, assets[i].tokenId);
+            IERC721(assets[i].collection).safeTransferNFT(
+                _msgSender(),
+                to,
+                assets[i].tokenId
+            );
         }
     }
 

@@ -13,9 +13,11 @@ contract OrderStorage is Initializable {
 
     mapping(OrderKey => LibOrder.DBOrder) public orders;
 
-    mapping(address => mapping(LibOrder.Side => RedBlackTreeLibrary.Tree)) public priceTrees;
+    mapping(address => mapping(LibOrder.Side => RedBlackTreeLibrary.Tree))
+    public priceTrees;
 
-    mapping(address => mapping(LibOrder.Side => mapping(Price => LibOrder.OrderQueue))) public orderQueues;
+    mapping(address => mapping(LibOrder.Side => mapping(Price => LibOrder.OrderQueue)))
+    public orderQueues;
 
     function __OrderStorage_init() internal onlyInitializing {}
 
@@ -27,13 +29,20 @@ contract OrderStorage is Initializable {
         }
     }
 
-    function getBestPrice(address collection, LibOrder.Side side) public view returns (Price price) {
+    function getBestPrice(
+        address collection,
+        LibOrder.Side side
+    ) public view returns (Price price) {
         price = (side == LibOrder.Side.Bid)
             ? priceTrees[collection][side].last()
             : priceTrees[collection][side].first();
     }
 
-    function getNextBestPrice(address collection, LibOrder.Side side, Price price) public view returns (Price nextBestPrice) {
+    function getNextBestPrice(
+        address collection,
+        LibOrder.Side side,
+        Price price
+    ) public view returns (Price nextBestPrice) {
         if (RedBlackTreeLibrary.isEmpty(price)) {
             nextBestPrice = (side == LibOrder.Side.Bid)
                 ? priceTrees[collection][side].last()
@@ -45,41 +54,61 @@ contract OrderStorage is Initializable {
         }
     }
 
-    function _addOrder(LibOrder.Order memory order) internal returns (OrderKey orderKey) {
+    function _addOrder(
+        LibOrder.Order memory order
+    ) internal returns (OrderKey orderKey) {
         orderKey = LibOrder.hash(order);
         if (orders[orderKey].order.maker != address(0)) {
             revert CannotInsertDuplicateOrder(orderKey);
         }
 
-        RedBlackTreeLibrary.Tree storage priceTree = priceTrees[order.nft.collection][order.side];
+        RedBlackTreeLibrary.Tree storage priceTree = priceTrees[
+                            order.nft.collection
+            ][order.side];
         if (!priceTree.exists(order.price)) {
             priceTree.insert(order.price);
         }
 
-        LibOrder.OrderQueue storage orderQueue = orderQueues[order.nft.collection][order.side][order.price];
+        LibOrder.OrderQueue storage orderQueue = orderQueues[
+                            order.nft.collection
+            ][order.side][order.price];
 
         if (LibOrder.isSentinel(orderQueue.head)) {
-            orderQueues[order.nft.collection][order.side][order.price] = LibOrder.OrderQueue(
+            orderQueues[order.nft.collection][order.side][
+            order.price
+            ] = LibOrder.OrderQueue(
                 LibOrder.ORDERKEY_SENTINEL,
                 LibOrder.ORDERKEY_SENTINEL
             );
-            orderQueue = orderQueues[order.nft.collection][order.side][order.price];
+            orderQueue = orderQueues[order.nft.collection][order.side][
+                            order.price
+                ];
         }
         if (LibOrder.isSentinel(orderQueue.tail)) {
             orderQueue.head = orderKey;
             orderQueue.tail = orderKey;
-            orders[orderKey] = LibOrder.DBOrder(order, LibOrder.ORDERKEY_SENTINEL);
+            orders[orderKey] = LibOrder.DBOrder(
+                order,
+                LibOrder.ORDERKEY_SENTINEL
+            );
         } else {
             orders[orderQueue.tail].next = orderKey;
-            orders[orderKey] = LibOrder.DBOrder(order, LibOrder.ORDERKEY_SENTINEL);
+            orders[orderKey] = LibOrder.DBOrder(
+                order,
+                LibOrder.ORDERKEY_SENTINEL
+            );
             orderQueue.tail = orderKey;
         }
     }
 
-    function _removeOrder(LibOrder.Order memory order) internal returns (OrderKey orderKey) {
-        LibOrder.OrderQueue storage orderQueue = orderQueues[order.nft.collection][order.side][order.price];
-        orderKey = LibOrder.hash(order);
-        OrderKey preOrderKey;
+    function _removeOrder(
+        LibOrder.Order memory order
+    ) internal returns (OrderKey orderKey) {
+        LibOrder.OrderQueue storage orderQueue = orderQueues[
+                            order.nft.collection
+            ][order.side][order.price];
+        orderKey = orderQueue.head;
+        OrderKey prevOrderKey;
         bool found;
         while (LibOrder.isNotSentinel(orderKey) && !found) {
             LibOrder.DBOrder memory dbOrder = orders[orderKey];
@@ -92,27 +121,37 @@ contract OrderStorage is Initializable {
                 (dbOrder.order.nft.amount == order.nft.amount)
             ) {
                 OrderKey temp = orderKey;
-                if (OrderKey.unwrap(orderQueue.head) == OrderKey.unwrap(orderKey)) {
+                if (
+                    OrderKey.unwrap(orderQueue.head) ==
+                    OrderKey.unwrap(orderKey)
+                ) {
                     orderQueue.head = dbOrder.next;
                 } else {
-                    orders[preOrderKey].next = dbOrder.next;
+                    orders[prevOrderKey].next = dbOrder.next;
                 }
-                if (OrderKey.unwrap(orderQueue.tail) == OrderKey.unwrap(orderKey)) {
-                    orderQueue.tail = preOrderKey;
+                if (
+                    OrderKey.unwrap(orderQueue.tail) ==
+                    OrderKey.unwrap(orderKey)
+                ) {
+                    orderQueue.tail = prevOrderKey;
                 }
-                preOrderKey = orderKey;
+                prevOrderKey = orderKey;
                 orderKey = dbOrder.next;
                 delete orders[temp];
                 found = true;
             } else {
-                preOrderKey = orderKey;
+                prevOrderKey = orderKey;
                 orderKey = dbOrder.next;
             }
         }
         if (found) {
             if (LibOrder.isSentinel(orderQueue.head)) {
-                delete orderQueues[order.nft.collection][order.side][order.price];
-                RedBlackTreeLibrary.Tree storage priceTree = priceTrees[order.nft.collection][order.side];
+                delete orderQueues[order.nft.collection][order.side][
+                order.price
+                ];
+                RedBlackTreeLibrary.Tree storage priceTree = priceTrees[
+                                    order.nft.collection
+                    ][order.side];
                 if (priceTree.exists(order.price)) {
                     priceTree.remove(order.price);
                 }
@@ -143,7 +182,9 @@ contract OrderStorage is Initializable {
 
         uint256 i;
         while (RedBlackTreeLibrary.isNotEmpty(price) && i < count) {
-            LibOrder.OrderQueue storage orderQueue = orderQueues[collection][side][price];
+            LibOrder.OrderQueue memory orderQueue = orderQueues[collection][
+                        side
+                ][price];
             OrderKey orderKey = orderQueue.head;
             if (LibOrder.isNotSentinel(firstOrderKey)) {
                 while (
@@ -159,19 +200,35 @@ contract OrderStorage is Initializable {
             while (LibOrder.isNotSentinel(orderKey) && i < count) {
                 LibOrder.DBOrder memory dbOrder = orders[orderKey];
                 orderKey = dbOrder.next;
-                if (dbOrder.order.expiry != 0 && dbOrder.order.expiry < block.timestamp) {
+                if (
+                    dbOrder.order.expiry != 0 &&
+                    dbOrder.order.expiry < block.timestamp
+                ) {
                     continue;
                 }
 
-                if (side == LibOrder.Side.Bid && saleKind == LibOrder.SaleKind.FixedPriceForCollection) {
-                    continue;
-                }
-
-                if (side == LibOrder.Side.Bid && saleKind == LibOrder.SaleKind.FixedPriceForItem) {
+                if (
+                    (side == LibOrder.Side.Bid) &&
+                    (saleKind == LibOrder.SaleKind.FixedPriceForCollection)
+                ) {
                     if (
-                        dbOrder.order.side == LibOrder.Side.Bid &&
-                        dbOrder.order.saleKind == LibOrder.SaleKind.FixedPriceForItem &&
-                        tokenId != dbOrder.order.nft.tokenId
+                        (dbOrder.order.side == LibOrder.Side.Bid) &&
+                        (dbOrder.order.saleKind ==
+                            LibOrder.SaleKind.FixedPriceForItem)
+                    ) {
+                        continue;
+                    }
+                }
+
+                if (
+                    (side == LibOrder.Side.Bid) &&
+                    (saleKind == LibOrder.SaleKind.FixedPriceForItem)
+                ) {
+                    if (
+                        (dbOrder.order.side == LibOrder.Side.Bid) &&
+                        (dbOrder.order.saleKind ==
+                            LibOrder.SaleKind.FixedPriceForItem) &&
+                        (tokenId != dbOrder.order.nft.tokenId)
                     ) {
                         continue;
                     }
@@ -192,36 +249,52 @@ contract OrderStorage is Initializable {
         LibOrder.SaleKind saleKind
     ) external view returns (LibOrder.Order memory orderResult) {
         Price price = getBestPrice(collection, side);
-        while(RedBlackTreeLibrary.isNotEmpty(price)) {
-            LibOrder.OrderQueue storage orderQueue = orderQueues[collection][side][price];
+        while (RedBlackTreeLibrary.isNotEmpty(price)) {
+            LibOrder.OrderQueue memory orderQueue = orderQueues[collection][
+                        side
+                ][price];
             OrderKey orderKey = orderQueue.head;
-            while(LibOrder.isNotSentinel(orderKey)) {
+            while (LibOrder.isNotSentinel(orderKey)) {
                 LibOrder.DBOrder memory dbOrder = orders[orderKey];
-                if (side == LibOrder.Side.Bid && saleKind == LibOrder.SaleKind.FixedPriceForItem) {
+                if (
+                    (side == LibOrder.Side.Bid) &&
+                    (saleKind == LibOrder.SaleKind.FixedPriceForItem)
+                ) {
                     if (
-                        dbOrder.order.side == LibOrder.Side.Bid &&
-                        dbOrder.order.saleKind == LibOrder.SaleKind.FixedPriceForItem &&
-                        tokenId != dbOrder.order.nft.tokenId
+                        (dbOrder.order.side == LibOrder.Side.Bid) &&
+                        (dbOrder.order.saleKind ==
+                            LibOrder.SaleKind.FixedPriceForItem) &&
+                        (tokenId != dbOrder.order.nft.tokenId)
                     ) {
                         orderKey = dbOrder.next;
                         continue;
                     }
                 }
 
-                if (side == LibOrder.Side.Bid && saleKind == LibOrder.SaleKind.FixedPriceForCollection) {
-                    if (dbOrder.order.side == LibOrder.Side.Bid && dbOrder.order.saleKind == LibOrder.SaleKind.FixedPriceForItem) {
+                if (
+                    (side == LibOrder.Side.Bid) &&
+                    (saleKind == LibOrder.SaleKind.FixedPriceForCollection)
+                ) {
+                    if (
+                        (dbOrder.order.side == LibOrder.Side.Bid) &&
+                        (dbOrder.order.saleKind ==
+                            LibOrder.SaleKind.FixedPriceForItem)
+                    ) {
                         orderKey = dbOrder.next;
                         continue;
                     }
                 }
 
-                if (dbOrder.order.expiry == 0 || dbOrder.order.expiry > block.timestamp) {
+                if (
+                    dbOrder.order.expiry == 0 ||
+                    dbOrder.order.expiry > block.timestamp
+                ) {
                     orderResult = dbOrder.order;
                     break;
                 }
                 orderKey = dbOrder.next;
             }
-            if(Price.unwrap(orderResult.price) > 0) {
+            if (Price.unwrap(orderResult.price) > 0) {
                 break;
             }
             price = getNextBestPrice(collection, side, price);

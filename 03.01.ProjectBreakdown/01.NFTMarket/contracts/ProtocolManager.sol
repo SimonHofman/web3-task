@@ -6,30 +6,41 @@ import {OwnableUpgradeable} from "@openzeppelin/contracts-upgradeable/access/Own
 
 import {LibPayInfo} from "./libraries/LibPayInfo.sol";
 
-abstract  contract ProtocolManager is Initializable, OwnableUpgradeable {
-    uint128 public protocalShare;
+abstract  contract ProtocolManager is
+    Initializable,
+    OwnableUpgradeable
+{
+    uint128 public protocolShare;
 
-    event LogUpdatedProtocalShare(uint128 indexed newProtocolShare);
+    event LogUpdatedProtocolShare(uint128 indexed newProtocolShare);
 
-    function __ProtocolManager_init(uint128 newProtocolShare) internal  onlyInitializing {
-        __ProtocolManager_init_unchained(newProtocolShare);
+    function __ProtocolManager_init(
+        uint128 newProtocolShare
+    ) internal  onlyInitializing {
+        __ProtocolManager_init_unchained(
+            newProtocolShare
+        );
     }
 
-    function __ProtocolManager_init_unchained(uint128 newProtocolShare) internal  onlyInitializing {
+    function __ProtocolManager_init_unchained(
+        uint128 newProtocolShare
+    ) internal  onlyInitializing {
         _setProtocolShare(newProtocolShare);
     }
 
-    function setProtocolShare(uint128 newProtocolShare) external  onlyOwner {
+    function setProtocolShare(
+        uint128 newProtocolShare
+    ) external  onlyOwner {
         _setProtocolShare(newProtocolShare);
     }
 
-    function _setProtocolShare(uint128 newProtocalShare) internal  {
+    function _setProtocolShare(uint128 newProtocolShare) internal  {
         require(
-            newProtocalShare <= LibPayInfo.MAX_PROTOCOL_SHARE,
+            newProtocolShare <= LibPayInfo.MAX_PROTOCOL_SHARE,
             "PM: exceed max protocol share"
         );
-        protocalShare = newProtocalShare;
-        emit LogUpdatedProtocalShare(newProtocalShare);
+        protocolShare = newProtocolShare;
+        emit LogUpdatedProtocolShare(newProtocolShare);
     }
 
     // 存储插槽预留，用于合约升级时保持存储布局兼容性：

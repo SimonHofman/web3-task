@@ -4,7 +4,8 @@ pragma solidity ^0.8.19;
 library LibPayInfo {
     uint128 public constant TOTAL_SHARE = 10000;
     uint128 public constant MAX_PROTOCOL_SHARE = 1000;
-    bytes32 public constant TYPE_HASH = keccak256("PayInfo(address receiver,uint128 share)");
+    bytes32 public constant TYPE_HASH =
+        keccak256("PayInfo(address receiver,uint96 share)");
 
     struct PayInfo {
         address  payable receiver;

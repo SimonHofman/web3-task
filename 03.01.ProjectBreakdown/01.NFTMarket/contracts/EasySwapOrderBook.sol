@@ -115,7 +115,14 @@ contract EasySwapOrderBook is
 
     function makeOrders(
         LibOrder.Order[] calldata newOrders
-    ) external payable override whenNotPaused nonReentrant returns (OrderKey[] memory newOrderKeys) {
+    )
+    external
+    payable
+    override
+    whenNotPaused
+    nonReentrant
+    returns (OrderKey[] memory newOrderKeys)
+    {
         uint256 orderAmount = newOrders.length;
         newOrderKeys = new OrderKey[](orderAmount);
 
@@ -123,13 +130,18 @@ contract EasySwapOrderBook is
         for (uint256 i = 0; i < orderAmount; ++i) {
             uint128 buyPrice;
             if (newOrders[i].side == LibOrder.Side.Bid) {
-                buyPrice = Price.unwrap(newOrders[i].price) * newOrders[i].nft.amount;
+                buyPrice =
+                    Price.unwrap(newOrders[i].price) *
+                    newOrders[i].nft.amount;
             }
 
             OrderKey newOrderKey = _makeOrderTry(newOrders[i], buyPrice);
             newOrderKeys[i] = newOrderKey;
 
-            if (OrderKey.unwrap(newOrderKey) != OrderKey.unwrap(LibOrder.ORDERKEY_SENTINEL)) {
+            if (
+                OrderKey.unwrap(newOrderKey) !=
+                OrderKey.unwrap(LibOrder.ORDERKEY_SENTINEL)
+            ) {
                 ETHAmount += buyPrice;
             }
         }
@@ -141,7 +153,13 @@ contract EasySwapOrderBook is
 
     function cancelOrders(
         OrderKey[] calldata orderKeys
-    ) external override whenNotPaused nonReentrant returns (bool[] memory successes) {
+    )
+    external
+    override
+    whenNotPaused
+    nonReentrant
+    returns (bool[] memory successes)
+    {
         successes = new bool[](orderKeys.length);
 
         for (uint256 i = 0; i < orderKeys.length; ++i) {
@@ -152,7 +170,14 @@ contract EasySwapOrderBook is
 
     function editOrders(
         LibOrder.EditDetail[] calldata editDetails
-    ) external payable override whenNotPaused nonReentrant returns (OrderKey[] memory newOrderKeys) {
+    )
+    external
+    payable
+    override
+    whenNotPaused
+    nonReentrant
+    returns (OrderKey[] memory newOrderKeys)
+    {
         newOrderKeys = new OrderKey[](editDetails.length);
 
         uint256 bidETHAmount;
@@ -183,7 +208,14 @@ contract EasySwapOrderBook is
     /// @custom:oz-upgrades-unsafe-allow delegatecall
     function matchOrders(
         LibOrder.MatchDetail[] calldata matchDetails
-    ) external payable override whenNotPaused nonReentrant returns (bool[] memory successes) {
+    )
+    external
+    payable
+    override
+    whenNotPaused
+    nonReentrant
+    returns (bool[] memory successes)
+    {
         successes = new bool[](matchDetails.length);
 
         uint128 buyETHAmount;
@@ -293,7 +325,8 @@ contract EasySwapOrderBook is
                     order.nft.tokenId
                 );
             } else if (order.side == LibOrder.Side.Bid) {
-                uint256 availNFTAmount = order.nft.amount - filledAmount[orderKey];
+                uint256 availNFTAmount = order.nft.amount -
+                                filledAmount[orderKey];
                 IEasySwapVault(_vault).withdrawETH(
                     orderHash,
                     Price.unwrap(order.price) * availNFTAmount,
@@ -315,12 +348,12 @@ contract EasySwapOrderBook is
         LibOrder.Order memory oldOrder = orders[oldOrderKey].order;
 
         if (
-            oldOrder.saleKind != newOrder.saleKind ||
-            oldOrder.side != newOrder.side ||
-            oldOrder.maker != newOrder.maker ||
-            oldOrder.nft.collection != newOrder.nft.collection ||
-            oldOrder.nft.tokenId != newOrder.nft.tokenId ||
-            filledAmount[oldOrderKey] >= oldOrder.nft.amount
+            (oldOrder.saleKind != newOrder.saleKind) ||
+            (oldOrder.side != newOrder.side) ||
+            (oldOrder.maker != newOrder.maker) ||
+            (oldOrder.nft.collection != newOrder.nft.collection) ||
+            (oldOrder.nft.tokenId != newOrder.nft.tokenId) ||
+            filledAmount[oldOrderKey] >= oldOrder.nft.amount // order cannot be canceled or filled
         ) {
             emit LogSkipOrder(oldOrderKey, oldOrder.salt);
             return (LibOrder.ORDERKEY_SENTINEL, 0);
@@ -346,8 +379,10 @@ contract EasySwapOrderBook is
         if (oldOrder.side == LibOrder.Side.List) {
             IEasySwapVault(_vault).editNFT(oldOrderKey, newOrderKey);
         } else if (oldOrder.side == LibOrder.Side.Bid) {
-            uint256 oldRemainingPrice = Price.unwrap(oldOrder.price) * (oldOrder.nft.amount - oldFilledAmount);
-            uint256 newRemainingPrice = Price.unwrap(newOrder.price) * newOrder.nft.amount;
+            uint256 oldRemainingPrice = Price.unwrap(oldOrder.price) *
+                (oldOrder.nft.amount - oldFilledAmount);
+            uint256 newRemainingPrice = Price.unwrap(newOrder.price) *
+                                newOrder.nft.amount;
             if (newRemainingPrice > oldRemainingPrice) {
                 deltaBidPrice = newRemainingPrice - oldRemainingPrice;
                 IEasySwapVault(_vault).editETH{value: uint256(deltaBidPrice)}(
@@ -355,7 +390,7 @@ contract EasySwapOrderBook is
                     newOrderKey,
                     oldRemainingPrice,
                     newRemainingPrice,
-                    newOrder.maker
+                    oldOrder.maker
                 );
             } else {
                 IEasySwapVault(_vault).editETH(
@@ -363,7 +398,7 @@ contract EasySwapOrderBook is
                     newOrderKey,
                     oldRemainingPrice,
                     newRemainingPrice,
-                    newOrder.maker
+                    oldOrder.maker
                 );
             }
         }
@@ -415,13 +450,13 @@ contract EasySwapOrderBook is
                 address(this)
             );
 
-            uint128 protocolFee = _shareToAmount(fillPrice, protocalShare);
+            uint128 protocolFee = _shareToAmount(fillPrice, protocolShare);
             sellOrder.maker.safeTransferETH(fillPrice - protocolFee);
 
             if (isSellExist) {
                 IEasySwapVault(_vault).withdrawNFT(
                     sellOrderKey,
-                    sellOrder.maker,
+                    buyOrder.maker,
                     sellOrder.nft.collection,
                     sellOrder.nft.tokenId
                 );
@@ -462,7 +497,7 @@ contract EasySwapOrderBook is
                 fillPrice
             );
 
-            uint128 protocolFee = _shareToAmount(fillPrice, protocalShare);
+            uint128 protocolFee = _shareToAmount(fillPrice, protocolShare);
             sellOrder.maker.safeTransferETH(fillPrice - protocolFee);
             if (buyPrice > fillPrice) {
                 buyOrder.maker.safeTransferETH(buyPrice - fillPrice);
@@ -491,8 +526,13 @@ contract EasySwapOrderBook is
             "HD: same order"
         );
         require(
-            sellOrder.side == LibOrder.Side.List && buyOrder.side == LibOrder.Side.Bid,
+            sellOrder.side == LibOrder.Side.List &&
+            buyOrder.side == LibOrder.Side.Bid,
             "HD: side mismatch"
+        );
+        require(
+            sellOrder.saleKind == LibOrder.SaleKind.FixedPriceForItem,
+            "HD: kind mismatch"
         );
         require(sellOrder.maker != buyOrder.maker, "HD: same maker");
         require(
