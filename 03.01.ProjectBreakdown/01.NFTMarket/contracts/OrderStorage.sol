@@ -84,12 +84,12 @@ contract OrderStorage is Initializable {
         while (LibOrder.isNotSentinel(orderKey) && !found) {
             LibOrder.DBOrder memory dbOrder = orders[orderKey];
             if (
-                dbOrder.order.maker == order.maker &&
-                dbOrder.order.saleKind == order.saleKind &&
-                dbOrder.order.expiry == order.expiry &&
-                dbOrder.order.salt == order.salt &&
-                dbOrder.order.nft.tokenId == order.nft.tokenId &&
-                dbOrder.order.nft.amount == order.nft.amount
+                (dbOrder.order.maker == order.maker) &&
+                (dbOrder.order.saleKind == order.saleKind) &&
+                (dbOrder.order.expiry == order.expiry) &&
+                (dbOrder.order.salt == order.salt) &&
+                (dbOrder.order.nft.tokenId == order.nft.tokenId) &&
+                (dbOrder.order.nft.amount == order.nft.amount)
             ) {
                 OrderKey temp = orderKey;
                 if (OrderKey.unwrap(orderQueue.head) == OrderKey.unwrap(orderKey)) {
