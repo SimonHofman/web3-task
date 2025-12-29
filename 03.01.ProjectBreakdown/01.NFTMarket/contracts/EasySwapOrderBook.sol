@@ -63,6 +63,7 @@ contract EasySwapOrderBook is
         _;
     }
 
+    /// @custom:oz-upgrades-unsafe-allow state-variable-immutable state-variable-assignment
     address private immutable self = address(this);
     address private _vault;
 
@@ -179,6 +180,7 @@ contract EasySwapOrderBook is
         }
     }
 
+    /// @custom:oz-upgrades-unsafe-allow delegatecall
     function matchOrders(
         LibOrder.MatchDetail[] calldata matchDetails
     ) external payable override whenNotPaused nonReentrant returns (bool[] memory successes) {
