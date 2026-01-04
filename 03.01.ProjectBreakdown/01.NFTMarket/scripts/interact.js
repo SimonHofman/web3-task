@@ -51,7 +51,7 @@ async function main() {
     const TestERC721 = await ethers.getContractFactory(erc721_name);
     testERC721 = await TestERC721.deploy();
     await testERC721.waitForDeployment();
-    const erc721_address = await testERC721.getAddress();
+    erc721_address = await testERC721.getAddress();
     console.log("ERC721Address::", erc721_address);
 
     await approvalForVault();
@@ -76,12 +76,13 @@ async function testMakeOrder(tokenId = 0) {
     let now = parseInt(new Date() / 1000) + 100000;
     let salt = 1;
     let nftAddress = erc721_address;
+    let price = ethers.parseEther("0.002")
     let order = {
         side: Side.List,
         saleKind: SaleKind.FixedPriceForItem,
         maker: deployer.address,
         nft: [tokenId, nftAddress, 1],
-        price: toBn("0.002"),
+        price: price,
         expiry: now,
         salt: salt,
     }

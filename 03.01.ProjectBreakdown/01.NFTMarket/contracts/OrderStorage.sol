@@ -13,11 +13,9 @@ contract OrderStorage is Initializable {
 
     mapping(OrderKey => LibOrder.DBOrder) public orders;
 
-    mapping(address => mapping(LibOrder.Side => RedBlackTreeLibrary.Tree))
-    public priceTrees;
+    mapping(address => mapping(LibOrder.Side => RedBlackTreeLibrary.Tree)) public priceTrees;
 
-    mapping(address => mapping(LibOrder.Side => mapping(Price => LibOrder.OrderQueue)))
-    public orderQueues;
+    mapping(address => mapping(LibOrder.Side => mapping(Price => LibOrder.OrderQueue))) public orderQueues;
 
     function __OrderStorage_init() internal onlyInitializing {}
 
