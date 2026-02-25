@@ -29,6 +29,6 @@ contract MockOracle is Ownable {
     }
 
     function getUnderlyingPrice(uint256 underlying) public view returns(uint256) {
-        return priceMap[address(underlying)];
+        return priceMap[address(bytes20(bytes32(underlying)))];
     }
 }
